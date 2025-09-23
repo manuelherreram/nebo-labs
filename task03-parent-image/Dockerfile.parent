@@ -1,0 +1,5 @@
+# Creating base Alpine image (parent)
+FROM alpine:3.20
+
+# Update and upgrade packages
+RUN apk update && apk upgrade --no-cache

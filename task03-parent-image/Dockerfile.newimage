@@ -1,0 +1,16 @@
+# Use your parent image as base
+FROM alpine_parent:1.0
+
+# Install Nginx
+RUN apk update && apk add --no-cache nginx \
+    && mkdir -p /run/nginx
+
+# Copy homepage and nginx config
+COPY ./my-app/index.html /usr/share/nginx/html/index.html
+COPY ./default.conf       /etc/nginx/http.d/default.conf
+
+# Expose port 80
+EXPOSE 80
+
+# Run nginx in foreground
+CMD ["nginx", "-g", "daemon off;"]
