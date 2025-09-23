@@ -66,3 +66,23 @@ terraform init
 terraform validate
 terraform plan -out plan.out
 terraform apply "plan.out"
+
+---
+
+## Outputs you’ll see
+
+- `public_ip` — the instance public IP  
+- `public_dns` — the instance public DNS  
+- `http_url` — convenience URL `http://<public_ip>`
+
+---
+
+## How to test
+
+```bash
+# Expect the HTML from bootstrap-nginx.sh
+curl $(terraform output -raw http_url)
+
+## Clean up
+terraform destroy
+

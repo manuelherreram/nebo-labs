@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.pyc
+
+# Archives / packages
+*.zip
+*.tar.gz
+
+# Terraform / IaC (for later tasks)
+.terraform/
+*.tfstate
+*.tfstate.backup
+terraform.tfvars
+*.plan
+
+# Env / creds
+.env
+.aws/
+.kube/
