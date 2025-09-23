@@ -105,6 +105,7 @@ kill %1
 ## Cleanup
 ```
 terraform destroy
+```
 
 ##Troubleshooting
 - No AMI found → ensure region supports AL2023 (us-east-2 works)
