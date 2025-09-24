@@ -1,0 +1,68 @@
+---
+- name: Install Docker and run my app container (Amazon Linux 2023)
+  hosts: targets
+  become: true
+  gather_facts: true
+
+  vars:
+    app_image: "manuelherreram/nebo-ansible-app:1.0"
+    app_name: "nebo_app"
+    app_port: "8080:80"
+
+  tasks:
+    - name: Show OS info
+      ansible.builtin.debug:
+        msg: "Distribution={{ ansible_facts.distribution }} Version={{ ansible_facts.distribution_version }}"
+
+    - name: Install Docker engine
+      ansible.builtin.dnf:
+        name: docker
+        state: present
+
+    - name: Enable and start Docker
+      ansible.builtin.service:
+        name: docker
+        enabled: true
+        state: started
+
+    - name: Ensure ec2-user is in docker group
+      ansible.builtin.user:
+        name: ec2-user
+        groups: docker
+        append: true
+
+    # community.docker modules need the Python Docker SDK on the target
+    - name: Ensure Python dependencies for docker modules are present
+      block:
+        - name: Install Docker SDK for Python via OS package (preferred)
+          ansible.builtin.dnf:
+            name: python3-docker
+            state: present
+      rescue:
+        - name: Install python3-pip (fallback path)
+          ansible.builtin.dnf:
+            name: python3-pip
+            state: present
+
+        - name: Install Docker SDK for Python via pip (fallback, allow system override)
+          ansible.builtin.pip:
+            name: docker
+            executable: pip3
+            extra_args: --break-system-packages
+
+
+    - name: Pull my app image
+      community.docker.docker_image:
+        name: "{{ app_image }}"
+        source: pull
+
+    - name: Ensure my app is running on port 8080
+      community.docker.docker_container:
+        name: "{{ app_name }}"
+        image: "{{ app_image }}"
+        state: started
+        restart_policy: unless-stopped
+        published_ports:
+          - "{{ app_port }}"
+        recreate: true
+        pull: false
