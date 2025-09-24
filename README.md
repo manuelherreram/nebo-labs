@@ -1,8 +1,34 @@
-# NEBo Labs
+# NEBo Labs — Cloud DevOps PeeX
 
-Hands-on labs to progress from Trainee → Junior DevOps Engineer.  
-Each task is self-contained in its folder.
+This repository contains my step-by-step labs for the **NEBo DevOps PeeX**.  
+Each folder represents a separate task from PeeX.  
 
-## Index
-- **task01-copy-tree** — Python stdlib script to copy a directory (no loops/ifs), with quiet logging and ignore patterns.
-- (Coming soon) **task02-ec2** — AWS Free Tier EC2 provisioning (Terraform + user-data).
+---
+
+## Structure
+
+- **task01-copy-tree** — Python script to copy directory trees (no loops/ifs).
+- **task02-ec2** — Provision an EC2 instance with Terraform + user-data bootstrap (nginx).
+- **task03-parent-image** — Build and push a parent Docker image.
+- **task04-vpc** — Create a custom VPC with public subnet and nginx instance.
+- **task05-private-compute-bastion** — Bastion host with Linux and Windows private instances.
+- **task06-observability-cloudwatch** — Install and configure CloudWatch Agent for metrics/logs.
+- **task07-ansible-config** — Use Ansible to configure Docker and deploy a containerized app.
+- **task08-cloud-security** — Configure secure SSH access and non-root users.
+- **task09-cicd** — Jenkins pipeline with Docker agent, build and test stages.
+
+Each folder includes:
+- **Terraform / Ansible / scripts** required for the task.
+- **README.md** with usage instructions, outputs, and acceptance criteria.
+
+---
+
+## Goals
+
+- Practice **Infrastructure as Code (IaC)** with Terraform and Ansible.  
+- Learn **AWS basics** (EC2, VPC, Security Groups, CloudWatch).  
+- Build and push **Docker images**.  
+- Configure **secure SSH access** and non-root users.  
+- Deploy and test a **Jenkins CI/CD pipeline**.  
+
+---
