@@ -1,0 +1,35 @@
+pipeline {
+    agent {
+        docker { image 'python:3.13-slim' }  // lightweight Python container
+    }
+
+    stages {
+        stage('Build') {
+            steps {
+                echo "📦 Installing dependencies"
+                sh 'python --version'
+                sh 'pip install --upgrade pip setuptools wheel'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                echo "🧪 Running tests"
+                sh 'echo "Pretend tests are running..."'
+                sh 'python -c "print(\'All tests passed ✅\')"'
+            }
+        }
+    }
+
+    post {
+        always {
+            echo "Pipeline finished (success or failure)."
+        }
+        success {
+            echo "✅ Build + Test completed successfully!"
+        }
+        failure {
+            echo "❌ Something went wrong."
+        }
+    }
+}
